@@ -45,7 +45,7 @@
 
         </div>
         <div>
-            预算金额:<input type="text" @keydown.enter="handleEnter">
+            预算金额:<input type="text" @keydown.enter="handleEnter" ref="typeInput">
         </div>
 
         <table>
@@ -118,6 +118,13 @@
                     //把新商品添加到列表
                     this.goods.push(this.newGoods)
                 }
+            },
+
+            //加载完毕之后触发，类似于window.onload
+            mounted() {
+                //获取型号输入框
+                const input = this.$refs.typeInput;
+                input.focus()
             }
         })
     </script>
