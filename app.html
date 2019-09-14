@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #app {
+            width: 500px;
+            border: 1px #eee solid;
+            padding: 10px 20px;
+            margin: 0 auto;
+        }
+        
+        #app>div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px #eee solid;
+        }
+        
+        table {
+            width: 500px;
+            padding: 10px 0;
+        }
+        
+        table td {
+            border-bottom: 1px #eee solid;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <h2>列表案例</h2>
+        <div>
+            <div>型号:<input type="text" v-model="newGoods.type"></div>
+            <div>价格:<input type="text" v-model="newGoods.price"></div>
+            <button @click="handleAdd">添加</button>
+
+        </div>
+        <div>
+            预算金额:<input type="text" @keydown.enter="handleEnter">
+        </div>
+
+        <table>
+            <thead>
+                <th>索引</th>
+                <th>型号</th>
+                <th>价格</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in goods" v-if="money >=item.price">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{item.price}}</td>
+                    <td><button @click="handleDelete">删除</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="./lib/vue.min.js"></script>
+    <script>
+        // 创建实例
+        var app = new Vue({
+            // 容器
+            el: "#app",
+            // 数据
+            data: {
+                goods: [{
+                    type: "iphone 11",
+                    price: 5000
+                }, {
+                    type: "iphone 11 pro",
+                    price: 8000
+                }, {
+                    type: "iphone 11 max pro",
+                    price: 10000
+                }, ],
+
+                // 预算金额
+                money: 80000,
+
+                //保存表单数据的对象
+                newGoods: {
+                    type: "",
+                    price: ""
+                }
+            },
+
+            //事件函数
+            methods: {
+                //删除
+                handleDelete(index) {
+                    //删除goods中的某一项
+                    console.log(index)
+                    this.goods.splice(index, 1);
+                },
+
+                //按下回车键时候触发
+                handleEnter(event) {
+                    //获取输入框的值，拿到金额
+                    var value = +event.target.value;
+
+                    //赋值给data的money
+                    this.money = value;
+                },
+
+                //添加商品
+                handleAdd() {
+                    //把新商品添加到列表
+                    this.goods.push(this.newGoods)
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
