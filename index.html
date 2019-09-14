@@ -11,14 +11,19 @@
 
 <body>
     <div id="app">
-        <p>{{msg}}</p>
+        <div style="width:200px; height:200px; background: gray" ref="box"></div>
+        <button @click="handleClick">修改样式</button>
     </div>
 
     <script>
         var vm = new Vue({
             el: '#app',
-            data: {
-                msg: '欢迎学习Vue,cainiao'
+            methods: {
+                //$refs可以获取到页面中所有ref元素
+                handleClick() {
+                    var box = this.$refs.box;
+                    box.style.background = "red";
+                }
             }
         })
     </script>
