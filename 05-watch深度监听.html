@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{b.b2.b3}}
+
+    </div>
+    <script src="./lib/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                a: 1,
+                b: {
+                    b2: {
+                        b3: 5
+
+                    }
+                }
+            },
+            watch: {
+                //普通的watch监听
+                a: function(val, oldVal) {
+                    console.log("a: " + val, oldVal);
+                },
+                //深度监听，可监听到对象的变化
+                // b: {
+                //     deep: true,
+                //     handler: function(val, oldVal) {
+                //         console.log("b.c: " + val.c, oldVal.c)
+                //     }
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

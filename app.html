@@ -59,8 +59,8 @@
                 <tr v-for="(item,index) in goods" v-if="money >=item.price">
                     <td>{{index + 1}}</td>
                     <td>{{item.type}}</td>
-                    <td>{{item.price}}</td>
-                    <td><button @click="handleDelete">删除</button></td>
+                    <td>{{item.price | tofixed}}</td>
+                    <td><button @click="handleDelete(index)">删除</button></td>
                 </tr>
             </tbody>
         </table>
@@ -115,8 +115,18 @@
 
                 //添加商品
                 handleAdd() {
+                    //拷贝一份新的商品数据
+                    var obj = {...this.newGoods
+                    };
+
                     //把新商品添加到列表
-                    this.goods.push(this.newGoods)
+                    this.goods.push(obj);
+
+                    //清空
+                    this.newGoods = {
+                        type: "",
+                        price: ""
+                    }
                 }
             },
 
@@ -125,6 +135,12 @@
                 //获取型号输入框
                 const input = this.$refs.typeInput;
                 input.focus()
+            },
+
+            filters: {
+                tofixed(value) {
+                    return Number(value).toFixed(2);
+                }
             }
         })
     </script>

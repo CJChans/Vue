@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>原装正品 iphone 11</p>
+        <p>单价：{{price}}</p>
+        <button @click="reduce">-</button> {{ number }}
+        <button @click="add">+</button>
+        <p>合计: {{result}}</p>
+    </div>
+    <script src="./lib/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                price: 5000,
+                number: 1
+
+
+            },
+            computed: {
+                result() {
+                    return +this.price * +this.number
+                }
+            },
+            methods: {
+                reduce() {
+                    if (this.number === 0) {
+                        return;
+                    }
+                    this.number--
+                },
+                add() {
+                    this.number++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
