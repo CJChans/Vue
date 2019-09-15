@@ -8,66 +8,97 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animate.css">
-    <style>      
+    <style>
+        .animate-text {
+            animation-delay: 1s;
+        }
+        
+        .animate-banner {
+            animation-delay: 2s;
+        }
+        
+        .animate-fotmsp {
+            animation-delay: 3s;
+        }
     </style>
 </head>
 
 <body>
     <div class="twopower" id="app">
         <!-- 标题图片 -->
-        <div class="dmpasd wow">
-            <img src="images/dl1.png" alt="">
-        </div>
+        <transition enter-active-class="animated fadeInLeftBig">
+            <div class="dmpasd wow" v-if="isshow">
+                <img src="images/dl1.png" alt="">
+            </div>
+        </transition>
 
-        <div class="pwer_pm wow">
-            <p>运筹帷幄于商场，决胜于千里之外。全新高性能2.4L VVT全铝芯引擎，搭载澳大利亚DSI6 速手自一体变速器，拥有强大功率和扭矩，酣畅动力正如鏖战商场，</p>
-            <p>身未动心已远，君临天下。高效能全铝芯1.8L VVT发动机助君驰骋，尽享速度与激情同时。大幅降低整车油耗与排放</p>
-        </div>
+        <transition enter-active-class="animated fadeInRightBig animate-text">
+            <div class="pwer_pm wow" v-if="isshow">
+                <p>运筹帷幄于商场，决胜于千里之外。全新高性能2.4L VVT全铝芯引擎，搭载澳大利亚DSI6 速手自一体变速器，拥有强大功率和扭矩，酣畅动力正如鏖战商场，</p>
+                <p>身未动心已远，君临天下。高效能全铝芯1.8L VVT发动机助君驰骋，尽享速度与激情同时。大幅降低整车油耗与排放</p>
+            </div>
+        </transition>
 
-        <div class="fotmsp"> </div>
+        <transition enter-active-class="animated fadeInUpBig animate-banner">
+            <div class="fotmsp" v-if="isshow"> </div>
+        </transition>
 
-        <div class="layer">
-            <div class="box">
-                <div class="box_hh wow">
-                    <h3>预约试驾</h3>
-                    <p>TEST DRIVE</p>
-                    <span></span>
-                </div>
-                <form class="yijian_jianyi">
+        <transition enter-active-class="animated fadeIn animate-fotmsp">
+            <div class="layer" v-if="isshow">
+                <div class="box">
+                    <div class="box_hh wow">
+                        <h3>预约试驾</h3>
+                        <p>TEST DRIVE</p>
+                        <span></span>
+                    </div>
+                    <form class="yijian_jianyi">
 
-                    <div class="item wow">
-                        <label for="">试驾车型</label>
-                        <select name="model">
+                        <div class="item wow">
+                            <label for="">试驾车型</label>
+                            <select name="model">
                             <option value="请先选择车型">请先选择车型</option>
 
                         </select><span>*</span>
-                    </div>
-                    <div class="item wow">
-                        <label for="sex">女士/先生</label>
-                        <select name="sex">
+                        </div>
+                        <div class="item wow">
+                            <label for="sex">女士/先生</label>
+                            <select name="sex">
                             <option value="女士">女士</option>
                             <option value="先生">先生</option>
                         </select><span>*</span>
-                    </div> 
-                    <div class="item wow">
-                        <label for="mycall">联系电话</label>
-                        <input name="mycall" type="text"><span>*</span>
-                    </div>
-                    <div class="item wow">
-                        <label for="title">你的姓名</label>
-                        <input name="title" type="text"><span>*</span>
-                    </div>
-                    <div class="btn wow">
-                        <button type="submit">立即预约</button>
-                        <p>此信息仅供预约试驾填写，如果您想咨询车型的相关问题，请前往‘’车主专区—交流专区‘’为我们留言，我们将尽快回复您。</p>
-                    </div>
-                </form>
+                        </div>
+                        <div class="item wow">
+                            <label for="mycall">联系电话</label>
+                            <input name="mycall" type="text"><span>*</span>
+                        </div>
+                        <div class="item wow">
+                            <label for="title">你的姓名</label>
+                            <input name="title" type="text"><span>*</span>
+                        </div>
+                        <div class="btn wow">
+                            <button type="submit">立即预约</button>
+                            <p>此信息仅供预约试驾填写，如果您想咨询车型的相关问题，请前往‘’车主专区—交流专区‘’为我们留言，我们将尽快回复您。</p>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </transition>
     </div>
-    
+
     <!-- 1.引入vuejs -->
-    <script src="../vue.min.js"></script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                isshow: false
+            },
+            mounted() {
+                this.isshow = true
+            }
+        })
+    </script>
 
 </body>
+
 </html>
