@@ -12,61 +12,81 @@
 
     <div id="app">
 
-        <div>
-            <p>原装正品 苹果11 </p>
+        型号：<input type="text" v-model="newgoods.title"> 价格：
+        <input type="text" v-model="newgoods.price">
+        <!-- <button @click="handleReduce(index)">-</button> {{newgoods.number}} <button @click="handleAdd(index)">+</button> -->
+        <button @click="handleAdds">添加</button>
+
+
+
+        <div v-for="(item,index) in goods">
+            <p>{{item.title}} </p>
             <p>
-                价格：{{ price1 }}
-                <button @click="reduce1">-</button> {{number1}} <button @click="add1">+</button>
+                价格：{{ item.price }}
+                <button @click="handleReduce(index)">-</button> {{item.number}} <button @click="handleAdd(index)">+</button>
             </p>
         </div>
-
-        <div>
-            <p>原装正品 华为 </p>
-            <p>
-                价格：{{ price2 }}
-                <button @click="reduce2">-</button> {{number2}} <button @click="add2">+</button>
-            </p>
-        </div>
-
         <p>总价：{{result}}</p>
     </div>
+
+
+
 
     <script src="./lib/vue-2.6.10.js"></script>
     <script>
         var app = new Vue({
             el: "#app",
             data: {
-                price1: 5000,
-                number1: 2,
-                price2: 8000,
-                number2: 3,
+                goods: [{
+                        title: "原装正品 苹果",
+                        price: "8000",
+                        number: "1"
+                    }, {
+                        title: "原装正品 华为",
+                        price: "5000",
+                        number: "1"
+                    }
+
+                ],
+                newgoods: {
+                    title: "",
+                    price: "",
+                    number: 1
+                }
             },
             computed: {
                 result() {
-                    return +this.price1 * +this.number1 + +this.price2 * +this.number2
+                    var price = 0;
+                    this.goods.forEach(item => {
+                        price += item.price * item.number;
+                    })
+                    return price;
                 }
             },
             methods: {
-                reduce1() {
-                    if (this.number1 === 0) {
+                handleAdd(index) {
+                    this.goods[index].number++
+                },
+                handleReduce(index) {
+                    if (this.goods[index].number === 0) {
                         return
                     }
-                    this.number1--
+                    this.goods[index].number--
                 },
-                add1() {
-                    this.number1++
+                handleAdds() {
+                    //拷贝一份新的商品数据
+                    var obj = {...this.newgoods
+                    };
 
-                },
-                reduce2() {
-                    if (this.number2 === 0) {
-                        return
+                    //把新商品添加到列表
+                    this.goods.push(obj);
+
+                    //清空
+                    this.newgoods = {
+                        type: "",
+                        price: ""
                     }
-                    this.number2--
-                },
-                add2() {
-                    this.number2++
-
-                },
+                }
             }
         })
     </script>

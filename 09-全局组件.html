@@ -10,21 +10,21 @@
 
 <body>
     <div id="app">
-        {{num | tofixed}}
+        <p>{{message}}</p>
+        <!-- 在实例中渲染 -->
+        <component></component>
     </div>
-
     <script src="./lib/vue-2.6.10.js"></script>
     <script>
-        var app = new Vue({
+        //1.Vue.component方法创建组件，该方法有两个参数，第一个参数是组件名，
+        //第二个参数是组件的配置,必须要指定template
+        Vue.component("component", {
+            template: "<p>这是全局组件</p>"
+        })
+        new Vue({
             el: "#app",
             data: {
-                num: 90
-            },
-            filters: {
-                //自定义过滤器函数
-                tofixed(value) {
-                    return Number(value).toFixed(2)
-                }
+                message: "hello vue"
             }
         })
     </script>

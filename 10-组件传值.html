@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <goods-item title="原装正品 假一赔十 iphone" price="8000"></goods-item>
+        <goods-item title="原装正品 假一赔十 华为" price="5000"></goods-item>
+    </div>
+
+    <script src="./lib/vue.js"></script>
+    <script>
+        // 1.通过props声明组件可以接受哪些属性
+        // 2.在调用组件时候给组件传值，传值的方式和标签属性一样
+
+        // 子组件
+        Vue.component("goods-item", {
+                props: ["title", "price"],
+                template: `
+                    <div style="margin-bottom:20px; border:1px #ddd solid; padding:40px;">
+                    <p>{{ title }}</p>
+                    <p>价格：{{ price }}</p>
+                    </div>
+                        `
+            })
+            // 根实例
+        new Vue({
+            el: "#app",
+            data: {
+                message: "手机商场"
+            }
+        })
+    </script>
+</body>
+
+</html>

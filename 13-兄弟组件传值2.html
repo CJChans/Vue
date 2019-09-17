@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 5px #ddd solid;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" style="padding:50px">
+        <color-input @keydown="getcolor"></color-input>
+        <box :boxcolorvalue="inputcolorvalue"></box>
+    </div>
+
+    <script src="./lib/vue-2.6.10.js"></script>
+    <script>
+        Vue.component("color-input", {
+            data() {
+                return {
+                    inputvalue: ""
+                }
+            },
+            methods: {
+                keydownEnter(event) {
+                    this.inputvalue = event.target.value;
+                    this.$emit("keydown", this.inputvalue);
+                }
+            },
+            template: `
+                <div>
+                   请输入颜色： <input @keydown.enter = "keydownEnter"></input>
+                </div>
+            `
+        })
+        Vue.component("box", {
+            props: ["boxcolorvalue"],
+            template: `
+                <div class="box" :style="'background:' + boxcolorvalue"></div>
+            `
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                inputcolorvalue: ""
+            },
+            methods: {
+                getcolor(value) {
+                    this.inputcolorvalue = value;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

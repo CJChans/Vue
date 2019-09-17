@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 5px #ddd solid;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" style="padding:50px">
+        <color-input @keydown="getcolor"></color-input>
+
+        <box :boxcolorvalue="value"></box>
+    </div>
+
+    <script src="./lib/vue-2.6.10.js"></script>
+    <script>
+        // 输入框组件
+        Vue.component("color-input", {
+            data() {
+                return {
+                    // 存储输入框的值
+                    inputvalue: ""
+                }
+            },
+            methods: {
+                // 按下回车键时候触发
+                handleEnter(event) {
+                    // 把输入框的值保存到data
+                    this.inputvalue = event.target.value;
+
+                    // 触发父组件的方法，把颜色传给父组件
+                    this.$emit("keydown", this.inputvalue);
+                }
+            },
+            template: `
+                <div>
+                    请输入颜色：<input @keydown.enter="handleEnter"> </input>   
+                </div>
+            `
+        });
+
+        // 色块组件
+        Vue.component("box", {
+            props: ["boxcolorvalue"],
+            template: `
+                <div class="box" :style="'background:' + boxcolorvalue"></div>
+            `
+        })
+
+        // 根实例
+        new Vue({
+            el: "#app",
+
+            data: {
+                value: ""
+            },
+
+            methods: {
+                // 获取子组件的颜色
+                getcolor(inputcolorvalue) {
+                    this.value = inputcolorvalue;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
