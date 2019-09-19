@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .header {
+            height: 100px;
+            border-bottom: 1px #ddd solid;
+            line-height: 100px;
+            padding-left: 200px;
+        }
+        
+        .header span {
+            cursor: pointer;
+        }
+        
+        .main {
+            padding: 100px;
+        }
+        
+        .box {
+            width: 200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="header">
+            <router-link to="/login">登录</router-link>
+            <router-link to="/register">注册</router-link>
+        </div>
+        <div class="main">
+            <!-- <login></login>
+            <register></register> -->
+
+            <!-- 组件的坑位，把路基的hash值匹配到组件显示在这个位置 -->
+            <router-view></router-view>
+        </div>
+
+    </div>
+    <script src="./lib/vue-2.6.10.js"></script>
+    <script src="./lib/vue-router.min.js"></script>
+    <script>
+        // 1.创建路由的页面组件
+        var Login = {
+            template: `
+        <div class="box">
+            登录组件
+            <p><input/></p>
+            <p><input/></p>
+            <p><button>登录</button></p>
+         </div>
+        `
+        }
+
+        var Register = {
+            template: `
+        <div class="box">
+            注册组件
+            <p><input/></p>
+            <p><input/></p>
+            <p><button>注册</button></p>
+         </div>
+        `
+        }
+
+        //2.定义路由配置
+        var routes = [
+            //把路径和组件关联起来
+            {
+                path: "/",
+                component: Login
+            }, {
+                path: "/login",
+                component: Login
+            }, {
+                path: "/register",
+                component: Register
+            },
+
+        ]
+
+        //3.创建路由实例
+        const router = new VueRouter({
+            //属性routes是固定的
+            routes
+        })
+
+        //页面根实例
+        new Vue({
+            el: "#app",
+            //4.挂载到根实例，属性router是固定
+            router
+        })
+    </script>
+
+
+
+</body>
+
+</html>

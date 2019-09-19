@@ -28,9 +28,7 @@
 <body>
     <div id="app">
 
-        <p1 @getdata="getData"></p1>
 
-        <p2 :list="goods"></p2>
     </div>
     <script src="./lib/vue-2.6.10.js"></script>
     <script>
@@ -52,48 +50,26 @@
                     ]
                 }
             },
-            methods: {
-                handleAdd(item) {
 
-
-                    this.$emit("getdata", item)
-                },
-            },
             template: `
             <div class="list">
             <h3 class="one">商品列表</h3>
-            <p v-for="(item,index) in list">{{item.title}} <button @click="handleAdd(item)">添加</button></p>
+           
 
         </div>
             `
         })
 
         Vue.component("p2", {
-            props: ["list"],
+
 
             template: `
             <div class="list">
             <h3 class="one">购物车</h3>
-            <p v-for="(item,index) in list">{{item.title}}</p>
+           
         </div>  
             
             `
-        })
-
-        new Vue({
-            el: "#app",
-            data: {
-                goods: [],
-
-            },
-            methods: {
-                getData(value) {
-                    this.goods.push(value)
-
-
-                }
-            }
-
         })
     </script>
 </body>

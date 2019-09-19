@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/login?username=某聪&password=123">登录</router-link>
+        <router-view></router-view>
+
+    </div>
+    <script src="./lib/vue-2.6.10.js"></script>
+    <script src="./lib/vue-router.min.js"></script>
+    <script>
+        var Login = {
+            // mounted() {
+            //     console.log($route.query)
+            // },
+            template: `
+            <div>
+                用户信息：
+                <p>用户名:{{ $route.query.username }}</p>
+                <p>密码:{{ $route.query.password }}</p>
+            </div>
+
+            `
+        }
+        var routes = [{
+            path: "/login",
+            component: Login
+        }]
+        const router = new VueRouter({
+            routes
+        })
+        new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>
