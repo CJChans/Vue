@@ -24,6 +24,7 @@
             <p>
                 价格：{{ item.price }}
                 <button @click="handleReduce(index)">-</button> {{item.number}} <button @click="handleAdd(index)">+</button>
+                <button @click="handleDele(index)">删除</button>
             </p>
         </div>
         <p>总价：{{result}}</p>
@@ -73,6 +74,7 @@
                     }
                     this.goods[index].number--
                 },
+
                 handleAdds() {
                     //拷贝一份新的商品数据
                     var obj = {...this.newgoods
@@ -86,7 +88,13 @@
                         type: "",
                         price: ""
                     }
-                }
+                },
+                handleDele(index) {
+                    var arr = [...this.goods];
+                    arr.splice(index, 1);
+                    // 要使用赋值方式
+                    this.goods = arr;
+                },
             }
         })
     </script>
